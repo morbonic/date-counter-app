@@ -13,6 +13,11 @@ function App() {
   const currentDate = new Date();
   const days = steps * count;
 
+  function handleReset() {
+    setSteps(1);
+    setCount(0);
+  }
+
   return (
     <div className="text-center">
       <h1>Exercise 1</h1>
@@ -37,6 +42,11 @@ function App() {
         {count === 0 && "Today is "}
         {addDays(currentDate, days).toDateString()}
       </div>
+      {count !== 0 && steps !== 1 ? (
+        <div>
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -66,7 +76,7 @@ function StepsRange({ steps, setSteps }) {
         type="range"
         min={1}
         max={10}
-        onChange={(e) => setSteps(e.target.value)}
+        onChange={(e) => setSteps(Number(e.target.value))}
         value={steps}
       />
       <span>{steps}</span>
@@ -90,7 +100,7 @@ function CounterBox({ count, setCount }) {
       </button>
       <input
         type="text"
-        onChange={(e) => setCount(e.target.value)}
+        onChange={(e) => setCount(Number(e.target.value))}
         value={count}
       />
       <button type="button" onClick={handlePlus}>
